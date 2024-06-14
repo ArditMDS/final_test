@@ -13,7 +13,7 @@ export function getSolution(dice: Die[]): [Die[], Die[]] {
         }
 
         const complement = dice.filter((_, index) => !(i & (1 << index)));
-        if (getScoreEquipe(subset) === getScoreEquipe(complement)) {
+        if (getScoreTeam(subset) === getScoreTeam(complement)) {
             return [subset, complement];
         }
     }
@@ -21,7 +21,7 @@ export function getSolution(dice: Die[]): [Die[], Die[]] {
     throw new Error("Aucune partition équilibrée trouvée. Vérifiez les entrées.");
 }
 
-export function getScoreEquipe(team: Die[]): number {
+export function getScoreTeam(team: Die[]): number {
     let score = 0;
 
     // Comptage des dés par couleur
@@ -44,24 +44,12 @@ export function getScoreEquipe(team: Die[]): number {
 
     // Calcul des points pour les dés bleus
     if (countBleu > 0) {
-        score += countBleu * (team.length - countBleu);
+        score += countBleu * (team.length + 1 - countBleu);
     }
 
     // Calcul des points pour les dés roses
     if (countRose > 0) {
-        const minValue = Math.min(...team.map(die => {
-            switch (die) {
-                case 'vert': return 1;
-                case 'gris': return 2;
-                case 'orange': return (team.length % 2 === 0 ? 2 : 1);
-                case 'jaune': return -1;
-                case 'bleu': return (team.length - countBleu);
-                case 'rose': return 3;
-                default: return 0;
-            }
-        }));
-        score += countRose * 3;
-        score -= countRose * minValue;
+        //logique de calcul des points pour les dés roses, je n'ai pas réussi à faire un code satisfaisant
     }
 
     return score;
