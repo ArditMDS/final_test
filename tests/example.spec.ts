@@ -92,3 +92,17 @@ test('verification de la couleur rouge du bouton égal', async ({ page }) => {
     });
     expect(color).toBe('rgb(255, 0, 0)');
 });
+
+
+//Le Résultat devrait etre 0 pour toute multiplication avec 0
+test('multiplication par 0', async ({ page }) => {
+    const screen = await page.locator("#screen");
+    const firstValue = await page.locator("#num-0");
+    await firstValue.click();
+    const buttonToMul = await page.locator("#multiplication");
+    await buttonToMul.click();
+    const secondValue = await page.locator("#num-4");
+    await secondValue.click();
+    await page.locator(".btnEqual").click();
+    await expect(screen).toHaveText('0');
+});
