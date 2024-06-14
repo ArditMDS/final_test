@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  width: auto;
+  border: none;
+  margin: 4px;
+  padding: 10px;
+  min-width: 40px;
+  min-height: 30px;
+  height: auto;
+  border-radius: 3px;
+  &:hover {
+    background-color: yellow;
+  }
+}
+
+.btnEqual {
+  background-color: red;
+}
